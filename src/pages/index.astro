@@ -1,0 +1,340 @@
+---
+import Layout from '../components/Layout.astro';
+
+const heroStats = [
+  ['750', 'kW', 'Live capacity'],
+  ['1.75', 'MW', 'Pipeline'],
+  ['30+', 'yrs', 'Field experience'],
+];
+
+const chapters = [
+  { num: '01', stat: '250', unit: 'kW', title: 'One machine, 250 kW.', text: 'Each of our turbines turns steady wind into 250 kW of clean electricity, around the clock.' },
+  { num: '02', stat: '750', unit: 'kW', title: 'Three turbines. One site.', text: 'Three 250 kW machines run side by side, giving us 750 kW of installed wind capacity.' },
+  { num: '03', stat: 'B2B', unit: '', title: 'Power for private clients.', text: 'Reliable wind generated electricity, supplied directly to private companies through power purchase agreements.' },
+  { num: '04', stat: '100', unit: '%', title: 'Clean energy, every unit.', text: 'Every watt we generate contributes to a cleaner planet for future generations.' },
+];
+
+// capacity grid: one cell = 50 kW. 750 kW today, 750 kW more wind, 1 MW solar = 2.5 MW
+const cells = [...Array(15).fill('now'), ...Array(15).fill('wind'), ...Array(20).fill('sun')];
+
+const values = [
+  { title: 'Excellence', text: 'Over 30 years of hands on expertise ensuring every turbine runs at peak performance.', tone: 'sky' },
+  { title: 'Reliability', text: 'Consistent, dependable power supply our clients can count on, day after day.', tone: 'sun' },
+  { title: 'Sustainability', text: 'Every watt we generate contributes to a cleaner planet for future generations.', tone: 'leaf' },
+];
+
+const services = [
+  { title: 'B2B power supply', text: 'Reliable wind generated electricity supplied directly to private companies through power purchase agreements.', art: 'plug', readout: 'PPA · Connected' },
+  { title: 'Energy monitoring', text: 'Real time monitoring and reporting of energy production across all three turbine units.', art: 'chart', readout: 'Live' },
+  { title: 'Grid compliance', text: 'Full regulatory compliance with grid interconnection standards and energy trading requirements.', art: 'grid', readout: 'Grid code · Compliant' },
+  { title: '24/7 O&M services', text: 'Round the clock in house operations and maintenance ensuring maximum uptime and turbine efficiency.', art: 'om', readout: 'On call · 24 × 7' },
+];
+
+const blade = 'M46 -20 C 150 -40 300 -30 450 -7 L 452 6 C 300 16 150 26 46 20 Z';
+---
+<Layout
+  title="N Touch Wind Services | Wind and Solar Power for Industry"
+  description="N Touch Wind Services operates 750 kW of wind capacity for private enterprises in Tamil Nadu, India, and is expanding with a 1 MW solar farm and 750 kW more wind, for 2.5 MW by 2030."
+  bodyClass="home"
+>
+  <div class="loader" aria-hidden="true">
+    <div class="loader-top"><span>N Touch Wind Services</span><span>Tamil Nadu, India</span></div>
+    <div class="loader-mid">
+      <svg class="loader-rotor" viewBox="-50 -50 100 100"><g><path d="M0-4C3-14 3-32 0-46c-3 14-3 32 0 42z"/><path d="M0-4C3-14 3-32 0-46c-3 14-3 32 0 42z" transform="rotate(120)"/><path d="M0-4C3-14 3-32 0-46c-3 14-3 32 0 42z" transform="rotate(240)"/><circle r="5"/></g></svg>
+      <p class="loader-num"><span>0</span><small>kW</small></p>
+    </div>
+    <div class="loader-bar"><i></i></div>
+  </div>
+
+  <main id="main">
+    <!-- HERO + SIGNATURE: one pinned 3D scene -->
+    <section class="scene" id="top" aria-labelledby="hero-title">
+      <div class="scene-stage">
+        <div class="scene-3d">
+          <img class="scene-fallback night" src="/media/hero.webp" alt="" width="1920" height="1080" fetchpriority="high" />
+          <img class="scene-fallback day" src="/media/turbine-sky.webp" alt="" width="1280" height="1280" loading="lazy" />
+          <canvas class="turbine-canvas" aria-hidden="true"></canvas>
+        </div>
+        <div class="scene-vignette"></div>
+        <div class="scene-vignette night-veil"></div>
+
+        <div class="hero-block wrap">
+          <p class="eyebrow"><i></i>N Touch Wind Services Pvt. Ltd.</p>
+          <h1 class="hero-title" id="hero-title"><span class="line">Powering industry</span><span class="line accent">with renewables.</span></h1>
+          <ul class="hero-meta"><li>Est. Tamil Nadu</li><li>750 kW operational</li><li>2.5 MW by 2030</li></ul>
+          <p class="hero-copy">Clean wind energy powering private enterprises. Now expanding with a <strong>1 MW photovoltaic farm</strong> and another <strong>750 kW of wind capacity</strong> in the pipeline.</p>
+          <div class="hero-cta">
+            <a class="btn btn-light" href="#services">Our services<span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost" href="#contact">Contact us<span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <ul class="hero-stats">
+          {heroStats.map(([v, u, l]) => <li><b>{v}<small>{u}</small></b><span>{l}</span></li>)}
+        </ul>
+        <a class="scroll-cue" href="#impact"><span class="cue-line"><i></i></span>Scroll to start the turbine</a>
+
+        <div class="chapters-wrap" id="impact">
+          <p class="eyebrow chapters-eyebrow"><i></i>By the numbers</p>
+          <h2 class="sr-only">Our impact in numbers</h2>
+          <ol class="chapters">
+            {chapters.map((c) => (
+              <li class="chapter">
+                <span class="chapter-num">{c.num} / 04</span>
+                <p class="chapter-stat">{c.stat}<small>{c.unit}</small></p>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="hud" aria-hidden="true">
+          <div class="hud-row"><span>Capacity</span><b><span class="hud-kw">0</span> kW</b></div>
+          <div class="hud-row"><span>Turbines</span><b class="hud-units"><i></i><i></i><i></i></b></div>
+          <div class="hud-dots">{chapters.map((c) => <i>{c.num}</i>)}</div>
+          <p class="hud-note">3D view modelled on our lattice tower turbines</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about wrap" id="about" aria-labelledby="about-title">
+      <div class="about-intro">
+        <p class="eyebrow"><i></i>About us</p>
+        <h2 id="about-title">Three decades of renewable energy expertise.</h2>
+        <p class="fill-text">Founded by a veteran of the wind energy industry, N Touch Wind Services Private Limited is built on deep expertise and a passion for clean power.</p>
+      </div>
+      <div class="founder">
+        <figure class="founder-photo">
+          <div class="founder-frame"><img src="/media/saravanan.webp" alt="Saravanan, Director and Founder of N Touch Wind Services" width="1040" height="1300" loading="lazy" /></div>
+          <figcaption><span>Director &amp; Founder</span><strong>Saravanan</strong></figcaption>
+        </figure>
+        <div class="founder-copy">
+          <p class="label">Leadership</p>
+          <p class="founder-years"><b>30</b><span>+</span><small>years in<br />wind energy</small></p>
+          <p>Three decades of mastering every aspect of wind energy, from turbine operations to farm management. Hands on leadership and deep industry knowledge have shaped N Touch Wind Services into a trusted name in clean energy.</p>
+          <p>Under his guidance, the company consistently delivers high turbine uptime, optimised energy output, and reliable power to industrial clients. He now leads the expansion into solar, bringing the same operational excellence to a diversified clean energy portfolio.</p>
+          <ul class="chips"><li>30+ years in wind energy</li><li>Scaling to 2.5 MW by 2030</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISSION & VISION: capacity grid -->
+    <section class="direction" id="direction" aria-labelledby="direction-title">
+      <div class="dir-stage wrap">
+        <div class="dir-left">
+          <p class="eyebrow"><i></i>Direction</p>
+          <h2 id="direction-title">Mission &amp; vision.</h2>
+          <p class="odometer" aria-hidden="true"><span>20</span><span class="odo-window"><span class="odo-strip"><b>26</b><b>27</b><b>28</b><b>29</b><b>30</b></span></span></p>
+          <div class="dir-texts">
+            <article class="dir-text">
+              <p class="label"><span>01</span> Today · Our mission</p>
+              <h3>Reliable renewable power for industry.</h3>
+              <p>To provide reliable, cost effective renewable energy to private enterprises while maintaining the highest standards of operational excellence and environmental responsibility.</p>
+              <p class="dir-foot">Operational excellence with measurable uptime</p>
+            </article>
+            <article class="dir-text">
+              <p class="label"><span>02</span> 2030 · Our vision</p>
+              <h3>A 2.5 MW hybrid clean energy portfolio.</h3>
+              <p>By 2030, we aim to have 2.5 MW of clean energy in active operation through a hybrid mix of solar and wind, expanding into new energy horizons and growing into a multi dimensional clean energy provider across India.</p>
+              <p class="dir-foot">Wind and solar growth with disciplined execution</p>
+            </article>
+          </div>
+        </div>
+        <div class="dir-right">
+          <p class="grid-total"><b class="grid-mw">2.5</b><small>MW</small><span>Clean capacity</span></p>
+          <div class="cap-grid" role="img" aria-label="Capacity grid: 750 kW of wind operating today, 750 kW more wind and 1 MW of solar planned, 2.5 MW in total by 2030">
+            {cells.map((k) => <i class={`cell ${k}`}><b></b></i>)}
+          </div>
+          <ul class="grid-legend">
+            <li class="now"><b>750 kW</b> Wind, operating today</li>
+            <li class="wind"><b>+750 kW</b> Wind expansion</li>
+            <li class="sun"><b>+1 MW</b> Solar farm</li>
+          </ul>
+          <p class="grid-note">Each square is 50 kW</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES: rotor of values -->
+    <section class="values" id="values" aria-labelledby="values-title">
+      <div class="values-stage">
+        <div class="values-head wrap">
+          <p class="eyebrow"><i></i>What drives us</p>
+          <h2 id="values-title">Three blades.<br /><span>Three values.</span></h2>
+        </div>
+        <div class="rotor-wrap" aria-hidden="true">
+          <div class="rotor-glow"></div>
+          <svg class="rotor" viewBox="-520 -520 1040 1040">
+            <g class="rotor-ring"><circle r="500" /><circle r="470" class="ticks" /></g>
+            <g class="rotor-spin">
+              {values.map((v, i) => (
+                <g class={`blade blade-${v.tone}`} transform={`rotate(${-120 * i})`}>
+                  <path d={blade} />
+                  <text x="96" y="8">{v.title.toUpperCase()}</text>
+                </g>
+              ))}
+              <circle r="58" class="hub" />
+              <circle r="20" class="hub-cap" />
+            </g>
+          </svg>
+        </div>
+        <div class="value-panels">
+          {values.map((v, i) => (
+            <article class={`value-panel tone-${v.tone}`}>
+              <span class="value-num">0{i + 1} / 03</span>
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES: power path -->
+    <section class="services wrap" id="services" aria-labelledby="services-title">
+      <div class="section-head">
+        <p class="eyebrow"><i></i>What we do</p>
+        <h2 id="services-title">End to end wind energy solutions.</h2>
+        <p class="section-lede">From generation to delivery, we handle every aspect of wind power for our industrial and commercial clients.</p>
+      </div>
+      <div class="path">
+        <div class="path-line" aria-hidden="true"><i class="path-fill"></i><span class="path-pulse"></span></div>
+        <div class="path-end path-start">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 22 L22 46 H26 Z M24 22 L24 4 M24 22 L39 30 M24 22 L9 30" /><circle cx="24" cy="22" r="3" /></svg>
+          <span>Generated on our turbines</span>
+        </div>
+        <ol class="stations">
+          {services.map((s, i) => (
+            <li class={`station art-${s.art}`}>
+              <span class="station-big" aria-hidden="true">0{i + 1}</span>
+              <span class="station-branch" aria-hidden="true"></span>
+              <span class="station-node" aria-hidden="true"></span>
+              <div class="station-art" aria-hidden="true">
+                <p class="readout"><i></i><span>{s.readout}</span>{s.art === 'chart' && <span class="readout-time">--:--:--</span>}</p>
+                {s.art === 'plug' && (
+                  <svg viewBox="0 0 240 160">
+                    <path class="cable" d="M0 80 H74" />
+                    <g class="plug"><rect x="70" y="60" width="52" height="40" rx="9" /><rect class="prong" x="122" y="68" width="22" height="6" rx="2" /><rect class="prong" x="122" y="86" width="22" height="6" rx="2" /></g>
+                    <rect class="socket" x="150" y="46" width="64" height="68" rx="14" />
+                    <circle class="led" cx="200" cy="58" r="4" />
+                    <g class="spark"><path d="M146 54 l-8 -10 M146 106 l-8 10 M140 80 h-12" /></g>
+                    <path class="flow" d="M214 80 H240" />
+                  </svg>
+                )}
+                {s.art === 'chart' && (
+                  <svg viewBox="0 0 240 160">
+                    <rect class="frame" x="16" y="16" width="208" height="128" rx="12" />
+                    <path class="gridl" d="M28 56 H212 M28 92 H212 M28 128 H212" />
+                    <rect class="bar" x="36" y="108" width="14" height="20" rx="2" /><rect class="bar" x="58" y="98" width="14" height="30" rx="2" /><rect class="bar" x="80" y="104" width="14" height="24" rx="2" />
+                    <polyline class="trace" points="30,118 62,104 88,110 114,80 140,88 164,60 188,68 210,42" />
+                    <circle class="tip" cx="210" cy="42" r="5" />
+                    <circle class="live" cx="34" cy="34" r="4" /><text x="44" y="38">LIVE</text>
+                  </svg>
+                )}
+                {s.art === 'grid' && (
+                  <svg viewBox="0 0 240 160">
+                    <path class="wire" d="M0 62 Q 44 78 86 50 M154 50 Q 196 78 240 62 M0 96 Q 48 108 93 80 M147 80 Q 192 108 240 96" />
+                    <path class="tower" d="M120 18 L96 146 M120 18 L144 146 M86 50 H154 M93 80 H147 M108 50 L132 80 M132 50 L108 80 M101 80 L139 146 M139 80 L101 146" />
+                    <g class="badge"><circle cx="200" cy="128" r="17" /><path d="M192 128 l6 6 l11 -12" /></g>
+                  </svg>
+                )}
+                {s.art === 'om' && (
+                  <svg viewBox="0 0 240 160">
+                    <g class="gear"><circle class="teeth" cx="78" cy="80" r="40" /><circle class="rim" cx="78" cy="80" r="28" /><circle class="axle" cx="78" cy="80" r="9" /></g>
+                    <g class="wrench"><path transform="translate(108 34) scale(3.4)" d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6z" /></g>
+                    <text class="clock" x="150" y="146">24/7</text>
+                  </svg>
+                )}
+              </div>
+              <div class="station-text">
+                <span class="station-num">0{i + 1}</span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="path-end path-finish">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44 V24 L16 30 V22 L28 28 V12 H36 V44 Z M10 36 h4 M20 36 h4 M30 36 h4" /></svg>
+          <span>Delivered to your business</span>
+        </div>
+      </div>
+      <a class="text-link" href="/wind-turbine-maintenance">Read our turbine maintenance guide<span class="arrow" aria-hidden="true">→</span></a>
+    </section>
+
+    <!-- ON SITE -->
+    <section class="onsite" id="on-site" aria-labelledby="onsite-title">
+      <div class="onsite-inner wrap">
+        <div class="onsite-copy">
+          <p class="eyebrow"><i></i>From the field</p>
+          <h2 id="onsite-title">Our operational wind site.</h2>
+          <p>A live look at our operational wind farm, where three 250 kW machines run side by side. Backed by three decades of hands on experience, our team keeps every turbine running at peak performance, delivering steady, dependable clean power to industrial clients.</p>
+          <ul class="chips"><li>3 × 250 kW turbines on site</li><li>Reliable on site generation</li><li>Operational wind farm site</li></ul>
+        </div>
+        <figure class="onsite-photo">
+          <div class="onsite-frame"><img src="/media/site-turbine.webp" alt="One of our lattice tower wind turbines on site, beside its control room and transformer yard" width="896" height="1200" loading="lazy" /></div>
+          <figcaption>On site, Tamil Nadu. One of our three 250 kW machines.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SOLAR EXPANSION -->
+    <section class="solar" id="solar" aria-labelledby="solar-title">
+      <div class="solar-stage">
+        <div class="solar-3d">
+          <img class="solar-fallback" src="/media/solar-farm.webp" alt="" width="1920" height="1080" loading="lazy" />
+          <canvas class="solar-canvas" aria-hidden="true"></canvas>
+        </div>
+        <div class="solar-shade"></div>
+        <div class="solar-inner wrap">
+          <div class="solar-copy">
+            <p class="eyebrow sun"><i></i>Coming soon</p>
+            <h2 id="solar-title">Going wind and solar.<br /><span>1 MW + 750 kW expansion.</span></h2>
+            <p>We're planning to invest in a 1 MW solar photovoltaic farm alongside an additional 750 kW wind energy expansion to complement our existing capacity. Together, these projects will bring our total clean energy output to 2.5 MW, diversifying our generation portfolio and offering even more reliable supply to our clients.</p>
+          </div>
+          <div class="solar-side">
+          <p class="solar-note" aria-hidden="true">3D view of the planned expansion</p>
+          <ul class="solar-figs">
+            <li class="fig-sun"><b>1<small>MW</small></b><span>Solar farm</span></li>
+            <li class="fig-wind"><b>750<small>kW</small></b><span>Wind expansion</span></li>
+            <li class="fig-total"><b>2.5<small>MW</small></b><span>Combined output</span></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact-inner wrap">
+        <div class="contact-copy">
+          <p class="eyebrow"><i></i>Get in touch</p>
+          <h2 id="contact-title">Ready to power<br /><span>your business?</span></h2>
+          <p>Whether you're looking for a reliable clean energy supplier or want to discuss a power purchase agreement, we'd love to hear from you.</p>
+          <dl class="contact-list">
+            <div><dt>Email</dt><dd><a href="mailto:ntouchwind@gmail.com">ntouchwind@gmail.com</a></dd></div>
+            <div><dt>Phone</dt><dd><a href="tel:+919445285395">+91 94452 85395</a></dd></div>
+            <div><dt>Location</dt><dd>Tamil Nadu, India</dd></div>
+          </dl>
+        </div>
+        <form class="contact-form" novalidate>
+          <label>Name<input name="name" autocomplete="name" required maxlength="100" /></label>
+          <label>Company<input name="company" autocomplete="organization" maxlength="140" /></label>
+          <label>Email<input name="email" type="email" autocomplete="email" required /></label>
+          <label>Message<textarea name="message" rows="4" required maxlength="2000" placeholder="Your location, energy needs and timeline"></textarea></label>
+          <button class="btn btn-sky" type="submit">Send message<span class="arrow" aria-hidden="true">↗</span></button>
+          <p class="form-note" role="status">Opens your email app with the message ready to send.</p>
+        </form>
+      </div>
+      <footer class="footer wrap">
+        <p class="footer-big" aria-hidden="true">N Touch Wind</p>
+        <div class="footer-row">
+          <span>© <span class="year">2026</span> N Touch Wind Services Pvt. Ltd. All rights reserved.</span>
+          <span>Clean · Reliable · Sustainable</span>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+  <script>import '../scripts/site';</script>
+</Layout>

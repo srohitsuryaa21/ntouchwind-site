@@ -1,0 +1,84 @@
+---
+import Layout from '../components/Layout.astro';
+
+const components = [
+  ['Rotor blades', 'leading edge erosion, lightning damage, bonding lines, drainage holes.'],
+  ['Pitch and yaw systems', 'bearings, gear teeth, lubrication, slip rings.'],
+  ['Gearbox and main bearing', 'oil cleanliness, particle counts, vibration signatures.'],
+  ['Generator', 'winding insulation, cooling, brush wear on DFIG machines.'],
+  ['Converter and transformer', 'thermal imaging, capacitor health, dielectric testing.'],
+  ['Tower and foundation', 'bolt torque, grout condition, corrosion protection.'],
+];
+const strategies = [
+  ['Scheduled (preventive)', 'Manufacturer defined service intervals, typically 6 and 12 months, covering inspections, lubrication, torque checks and consumables.'],
+  ['Condition based', 'Vibration analysis, oil sampling, SCADA trending and thermography to catch drivetrain faults before they become failures.'],
+  ['Corrective and major repairs', 'Up tower repairs, blade composite work and crane assisted exchanges of gearboxes, generators or main bearings.'],
+];
+const tips = [
+  'Trend SCADA alarms weekly. Repeat warnings are the cheapest early sign of a failure.',
+  'Keep blade aerodynamics clean. Serration repairs and leading edge protection can recover 1 to 3% of annual energy production.',
+  'Re-tune yaw alignment every year with a nacelle mounted LiDAR or a met mast comparison.',
+  'Plan major services during low wind months to keep lost production to a minimum.',
+];
+const toc = [['why', 'Why maintenance matters'], ['components', 'Key components'], ['strategies', 'Strategies'], ['tools', 'Tools and equipment'], ['uptime', 'Uptime and efficiency'], ['safety', 'Safety first']];
+---
+<Layout
+  title="Wind Turbine Maintenance Guide | N Touch Wind Services"
+  description="A practical guide to wind turbine maintenance and optimisation, drawn from 30 years of field experience servicing industrial wind assets in India."
+  path="/wind-turbine-maintenance"
+  bodyClass="article-page"
+>
+  <main id="main" class="article wrap">
+    <header class="article-head">
+      <p class="eyebrow"><i></i>Operations guide</p>
+      <h1>Wind turbine maintenance <span class="accent" style="color:var(--sky)">and optimisation.</span></h1>
+      <p>A practical guide to keeping turbines safe, efficient and producing, drawn from 30 years of field experience servicing industrial wind assets.</p>
+    </header>
+    <figure class="article-hero"><img src="/media/site-turbine.webp" alt="Our lattice tower wind turbine on site in Tamil Nadu" width="896" height="1200" /></figure>
+
+    <div class="article-body">
+      <nav class="article-toc" aria-label="On this page">
+        {toc.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+      </nav>
+      <div>
+        <section id="why">
+          <h2>Why maintenance matters</h2>
+          <p>A modern wind turbine has thousands of moving parts working in punishing conditions. Disciplined maintenance is what separates a 98% availability asset from one that bleeds revenue through avoidable downtime. Beyond uptime, proper servicing protects warranties, extends component life and, most importantly, keeps technicians safe at height.</p>
+        </section>
+        <section id="components">
+          <h2>Key components to inspect</h2>
+          <ul>{components.map(([k, v]) => <li><strong>{k}:</strong> {v}</li>)}</ul>
+        </section>
+        <section id="strategies">
+          <h2>Maintenance strategies</h2>
+          <div class="strategy-grid">{strategies.map(([k, v]) => <article><h3>{k}</h3><p>{v}</p></article>)}</div>
+        </section>
+        <section id="tools">
+          <h2>Tools and equipment</h2>
+          <p>A well equipped service van carries calibrated torque tools, hydraulic tensioners, borescopes, vibration analysers, oil sampling kits, megohmmeters, thermal cameras and full IRATA and GWO compliant fall protection gear. SCADA laptops and the turbine maker's service software complete the toolkit for diagnostics and parameter tuning.</p>
+        </section>
+        <section id="uptime">
+          <h2>Optimising for uptime and efficiency</h2>
+          <ul>{tips.map((t) => <li>{t}</li>)}</ul>
+        </section>
+        <section id="safety">
+          <h2>Safety first, always</h2>
+          <p>Every task starts with a risk assessment, lockout and tagout procedures and a rescue plan. GWO Basic Safety Training, working at height certification and confined space competence are non negotiable. No turbine is worth a technician.</p>
+        </section>
+        <aside class="article-cta">
+          <p class="eyebrow"><i></i>Need experienced O&amp;M support?</p>
+          <h2>Talk to our team.</h2>
+          <p>N Touch Wind Services provides 24/7 operations and maintenance for industrial wind assets across the region.</p>
+          <a class="btn btn-sky" href="/#contact">Get in touch<span class="arrow" aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="footer wrap">
+    <div class="footer-row">
+      <span>© <span class="year">2026</span> N Touch Wind Services Pvt. Ltd.</span>
+      <a href="/">Back to home</a>
+    </div>
+  </footer>
+  <script>import '../scripts/site';</script>
+</Layout>

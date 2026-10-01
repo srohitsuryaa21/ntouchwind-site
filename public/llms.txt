@@ -1,0 +1,17 @@
+# N Touch Wind Services Pvt Ltd
+
+> N Touch Wind Services deploys wind and solar clean-energy solutions for private enterprises across India, with operational wind sites and an expanding hybrid renewable portfolio.
+
+N Touch Wind Services Pvt Ltd is a renewable-energy developer and operator focused on decentralized clean power for industries, institutions, and private enterprises. The site presents the company’s operational 250 kW wind sites, upcoming 1 MW solar expansion, hybrid wind-solar vision, services, and team background.
+
+## Pages
+
+- [Home](/): Company overview, operational wind site, solar expansion, services, vision, and contact details.
+
+## Key sections
+
+- [Our Operational Wind Site](/#on-site): Three 250 kW wind turbines running at site, substation, and transformer infrastructure.
+- [Solar Expansion](/#solar): Upcoming 1 MW solar farm and planned hybrid wind-solar capacity.
+- [Services](/#services): Wind project development, solar EPC, hybrid solutions, and operations & maintenance.
+- [Vision](/#direction): Roadmap to 2.5 MW of hybrid wind and solar capacity by 2030.
+- [Contact](/#contact): Reach the team for project enquiries and partnerships.

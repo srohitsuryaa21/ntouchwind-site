@@ -1,0 +1,92 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/site.css';
+interface Props { title: string; description: string; path?: string; bodyClass?: string }
+const { title, description, path = '/', bodyClass } = Astro.props;
+const url = new URL(path, 'https://www.ntouchwind.com').href;
+const image = 'https://www.ntouchwind.com/media/hero.webp';
+const nav = [
+  ['About', '/#about'],
+  ['Impact', '/#impact'],
+  ['Services', '/#services'],
+  ['Solar expansion', '/#solar'],
+];
+const ld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization', '@id': 'https://www.ntouchwind.com/#org', name: 'N Touch Wind Services Pvt Ltd',
+      url: 'https://www.ntouchwind.com/', logo: 'https://www.ntouchwind.com/media/logo.png',
+      email: 'ntouchwind@gmail.com', telephone: '+91-9445285395',
+      address: { '@type': 'PostalAddress', addressRegion: 'Tamil Nadu', addressCountry: 'IN' },
+      founder: { '@type': 'Person', name: 'Saravanan', jobTitle: 'Director and Founder' },
+      description: 'Renewable energy company operating 750 kW of wind capacity for private enterprises in India, expanding into solar.',
+    },
+    { '@type': 'WebSite', '@id': 'https://www.ntouchwind.com/#website', name: 'N Touch Wind Services', url: 'https://www.ntouchwind.com/', publisher: { '@id': 'https://www.ntouchwind.com/#org' } },
+  ],
+};
+---
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#04080e" />
+  <meta name="google-site-verification" content="hP0bkxIyH62_SuL2orC3cG61TaKe0WvJjLV3GgKaB1g" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="canonical" href={url} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url} />
+  <meta property="og:image" content={image} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <script is:inline>
+    (function () {
+      var d = document.documentElement, t = 'dark';
+      d.classList.replace('no-js', 'js');
+      try { t = localStorage.getItem('ntw-theme') || 'dark'; } catch (e) {}
+      d.dataset.theme = t;
+      if (t === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f3f6f9');
+    })();
+  </script>
+</head>
+<body class={bodyClass}>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i></i></div>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="N Touch Wind Services, home">
+      <img src="/media/logo-sm.png" alt="" width="52" height="30" />
+      <span>N Touch Wind<small>Services Pvt. Ltd.</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      {nav.map(([label, href]) => <a href={href}>{label}</a>)}
+    </nav>
+    <button class="theme-btn" type="button" aria-label="Switch to day mode" aria-pressed="false">
+      <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" /><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" /></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" /></svg>
+    </button>
+    <a class="btn btn-sky btn-sm" href="/#contact">Get in touch<span class="arrow" aria-hidden="true">↗</span></a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+  </header>
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Mobile">
+      {nav.map(([label, href], i) => <a href={href}><small>0{i + 1}</small>{label}</a>)}
+      <a href="/#contact"><small>05</small>Contact</a>
+    </nav>
+    <p>ntouchwind@gmail.com<br />+91 94452 85395</p>
+  </div>
+  <slot />
+</body>
+</html>
