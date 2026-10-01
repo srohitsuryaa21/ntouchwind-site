@@ -1,4 +1,26 @@
+# dependencies and build output
 node_modules/
 dist/
 .astro/
+
+# secrets and local settings (never commit these)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# editor, assistant and OS files
+.vscode/
+.idea/
+.claude/
+.agents/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# logs and scratch
 *.log
+npm-debug.log*
+*.tmp
+scratch/

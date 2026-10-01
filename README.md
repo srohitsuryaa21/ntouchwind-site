@@ -4,13 +4,13 @@ Astro + TypeScript + GSAP ScrollTrigger + Lenis smooth scroll + Three.js. Static
 
 ## Run
 
-```powershell
-cd D:\ntouchwind-main\ntouchwind-next
-$env:ASTRO_TELEMETRY_DISABLED='1'
-npm.cmd install
-npm.cmd run dev      # http://127.0.0.1:4321/
-npm.cmd run build    # astro check + build + link checker
+```bash
+npm install
+npm run dev      # http://127.0.0.1:4321/
+npm run build    # astro check + build + link checker
 ```
+
+Every push to `main` is built and published to GitHub Pages at www.ntouchwind.com by `.github/workflows/deploy.yml`.
 
 ## Home page sequence
 
