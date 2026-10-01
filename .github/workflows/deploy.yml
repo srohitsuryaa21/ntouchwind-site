@@ -1,5 +1,5 @@
 # Every push to main is type-checked, built (the build also checks internal links) and published
-# to GitHub Pages at www.ntouchwind.com. Pull requests are built but not published.
+# to GitHub Pages at ntouchwind.com. Pull requests are built but not published.
 name: Build and deploy
 
 on:

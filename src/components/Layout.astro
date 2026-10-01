@@ -5,8 +5,8 @@ import '@fontsource-variable/jetbrains-mono';
 import '../styles/site.css';
 interface Props { title: string; description: string; path?: string; bodyClass?: string }
 const { title, description, path = '/', bodyClass } = Astro.props;
-const url = new URL(path, 'https://www.ntouchwind.com').href;
-const image = 'https://www.ntouchwind.com/media/hero.webp';
+const url = new URL(path, 'https://ntouchwind.com').href;
+const image = 'https://ntouchwind.com/media/hero.webp';
 const nav = [
   ['About', '/#about'],
   ['Impact', '/#impact'],
@@ -17,14 +17,14 @@ const ld = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'Organization', '@id': 'https://www.ntouchwind.com/#org', name: 'N Touch Wind Services Pvt Ltd',
-      url: 'https://www.ntouchwind.com/', logo: 'https://www.ntouchwind.com/media/logo.png',
+      '@type': 'Organization', '@id': 'https://ntouchwind.com/#org', name: 'N Touch Wind Services Pvt Ltd',
+      url: 'https://ntouchwind.com/', logo: 'https://ntouchwind.com/media/logo.png',
       email: 'ntouchwind@gmail.com', telephone: '+91-9445285395',
       address: { '@type': 'PostalAddress', addressRegion: 'Tamil Nadu', addressCountry: 'IN' },
       founder: { '@type': 'Person', name: 'Saravanan', jobTitle: 'Director and Founder' },
       description: 'Renewable energy company operating 750 kW of wind capacity for private enterprises in India, expanding into solar.',
     },
-    { '@type': 'WebSite', '@id': 'https://www.ntouchwind.com/#website', name: 'N Touch Wind Services', url: 'https://www.ntouchwind.com/', publisher: { '@id': 'https://www.ntouchwind.com/#org' } },
+    { '@type': 'WebSite', '@id': 'https://ntouchwind.com/#website', name: 'N Touch Wind Services', url: 'https://ntouchwind.com/', publisher: { '@id': 'https://ntouchwind.com/#org' } },
   ],
 };
 ---

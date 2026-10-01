@@ -10,7 +10,7 @@ npm run dev      # http://127.0.0.1:4321/
 npm run build    # astro check + build + link checker
 ```
 
-Every push to `main` is built and published to GitHub Pages at www.ntouchwind.com by `.github/workflows/deploy.yml`.
+Every push to `main` is built and published to GitHub Pages at ntouchwind.com by `.github/workflows/deploy.yml`.
 
 ## Home page sequence
 

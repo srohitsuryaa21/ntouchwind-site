@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ntouchwind.com/sitemap.xml
+Sitemap: https://ntouchwind.com/sitemap.xml
